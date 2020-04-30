@@ -1,8 +1,16 @@
-version: '3'
+version: '3.7'
 services:
-  web:
-    build: .
-    ports:
-      - "8081:5000"
-  redis:
-    image: "redis:alpine"
+    flask:
+        build: .
+        ports:
+            - "5000:5000"
+        volumes:
+            - .:/app
+        environment:
+            - REDIS_HOST=redis
+        depends_on:
+            - redis
+    redis:
+        image: redis:5.0.7
+        ports:
+            - "6379:6379"
